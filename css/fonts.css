@@ -3,3 +3,8 @@
   font-display: swap;
   src: url('/fonts/SmileySans-Oblique.ttf') format("truetype");
   }
+ @font-face {
+  font-family: 'AlibabaPuHuiTi';
+  font-display: swap;
+  src: url('/fonts/AlibabaPuHuiTi-2-45-Light.ttf') format("truetype");
+  }
