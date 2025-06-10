@@ -1,0 +1,419 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>任意网络环境下的Moonlight串流 | Rinaspace</title><meta name="author" content="Inari"><meta name="copyright" content="Inari"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="准备工作：     ①使用公网IP串流建议桥接光猫使用路由器拨号 否则只能连接到光猫的网络以获取公网IP       无公网IP则无必要        (不同运营商设置方法不同 可以百度一下)      ②确保 GeforceExperience 中的 GAMESTREAM 已开启      并添加 C:\Windows\System32下的mstsc.exe(电脑桌面) 方便测试   （2022">
+<meta property="og:type" content="article">
+<meta property="og:title" content="任意网络环境下的Moonlight串流">
+<meta property="og:url" content="https://rinatech.cc/2023/01/24/%E4%BB%BB%E6%84%8F%E7%BD%91%E7%BB%9C%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84Moonlight%E4%B8%B2%E6%B5%81/index.html">
+<meta property="og:site_name" content="Rinaspace">
+<meta property="og:description" content="准备工作：     ①使用公网IP串流建议桥接光猫使用路由器拨号 否则只能连接到光猫的网络以获取公网IP       无公网IP则无必要        (不同运营商设置方法不同 可以百度一下)      ②确保 GeforceExperience 中的 GAMESTREAM 已开启      并添加 C:\Windows\System32下的mstsc.exe(电脑桌面) 方便测试   （2022">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://rinatech.cc/img/favicon.jpg">
+<meta property="article:published_time" content="2023-01-24T14:12:29.000Z">
+<meta property="article:modified_time" content="2023-09-17T09:38:14.215Z">
+<meta property="article:author" content="Inari">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rinatech.cc/img/favicon.jpg"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="https://rinatech.cc/2023/01/24/%E4%BB%BB%E6%84%8F%E7%BD%91%E7%BB%9C%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84Moonlight%E4%B8%B2%E6%B5%81/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.31/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '任意网络环境下的Moonlight串流',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-09-17 17:38:14'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><head>
+<meta name="generator" content="Hexo 6.3.0"></head></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/20230123_233707.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Rinaspace"><span class="site-name">Rinaspace</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">任意网络环境下的Moonlight串流</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-24T14:12:29.000Z" title="发表于 2023-01-24 22:12:29">2023-01-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-09-17T09:38:14.215Z" title="更新于 2023-09-17 17:38:14">2023-09-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B8%B2%E6%B5%81%E7%AF%87/">串流篇</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="任意网络环境下的Moonlight串流"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2023/01/24/%E4%BB%BB%E6%84%8F%E7%BD%91%E7%BB%9C%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84Moonlight%E4%B8%B2%E6%B5%81/#post-comment"><span class="waline-comment-count" data-path="/2023/01/24/%E4%BB%BB%E6%84%8F%E7%BD%91%E7%BB%9C%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84Moonlight%E4%B8%B2%E6%B5%81/"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>准备工作：</p>
+<pre><code>    ①使用公网IP串流建议桥接光猫使用路由器拨号 否则只能连接到光猫的网络以获取公网IP
+
+     无公网IP则无必要
+
+      (不同运营商设置方法不同 可以百度一下)
+
+    ②确保 GeforceExperience 中的 GAMESTREAM 已开启
+
+    并添加 C:\Windows\System32下的mstsc.exe(电脑桌面) 方便测试
+</code></pre>
+<p><img src="https://pic.imgdb.cn/item/64f3536b661c6c8e54de2687.webp" alt="10001"></p>
+<p>（2022&#x2F;12 建议大家选择Parsec串流 Moonlight已经过时力 悲)<br>IPv4公网 PC端设置 ：</p>
+<p>确保百度查到的IP和路由拨号获取的IP一致</p>
+<p>下面你需要做的是：</p>
+<p>① </p>
+<p>1.进入路由器管理界面  给你的电脑分配一个静态地址<br>小米路由器演示 不同路由器设置有差异</p>
+<p><img src="https://pic.imgdb.cn/item/64f3536c661c6c8e54de2693.webp" alt="10002"></p>
+<p><img src="https://pic.imgdb.cn/item/64f3536c661c6c8e54de26a8.webp" alt="10003"></p>
+<ol start="2">
+<li></li>
+</ol>
+<p>自动设置端口映射&#x2F;转发：</p>
+<p>开启路由器UPnP功能</p>
+<p><img src="https://pic.imgdb.cn/item/64f3536c661c6c8e54de26b1.webp" alt="10004"></p>
+<p>下载安装并运行官方配置工具</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/moonlight-stream/Internet-Hosting-Tool/releases">https://github.com/moonlight-stream/Internet-Hosting-Tool/releases</a></p>
+<p>选择</p>
+<p><img src="https://pic.imgdb.cn/item/64f3536c661c6c8e54de26cc.webp" alt="10005"></p>
+<p><img src="https://pic.imgdb.cn/item/64f35373661c6c8e54de2846.webp" alt="10006"></p>
+<p>此时已经自动添加端口规则了</p>
+<p>若此方法无效 还可以手动在路由器中添加端口映射</p>
+<p><img src="https://pic.imgdb.cn/item/64f35373661c6c8e54de2851.webp" alt="10007"></p>
+<p>内部IP要填写电脑局域网IP</p>
+<p>Moonlight使用端口：</p>
+<p>协议      内部端口</p>
+<p>TCP 47984→47984</p>
+<p>TCP 47989→47989</p>
+<p>TCP 48010→48010</p>
+<p>TCP 27031→27031</p>
+<p>TCP 27036→27036</p>
+<p>UDP 27036→27036</p>
+<p>UDP 27037→27037</p>
+<p>UDP 47998→47998</p>
+<p>UDP 47999→47999</p>
+<p>UDP 48000→48000</p>
+<p>UDP 48002→48002</p>
+<p>UDP 48010→48010</p>
+<p><strong>IPv6公网 PC端设置 ：</strong></p>
+<p>注意：   </p>
+<pre><code>            ①确保你的光猫和运营商支持IPv6网络
+            ②仅当手机和电脑都支持IPv6网络时才能串流
+            ③无需配置端口映射
+</code></pre>
+<p>① </p>
+<p>1.打开cmd  输入ipconfig</p>
+<p><img src="https://pic.imgdb.cn/item/64f35373661c6c8e54de2861.webp" alt="10008"></p>
+<p>如果没有以2xxx开头的IPv6地址 说明你的路由IPv6设置有问题</p>
+<p>（以小米路由为例）找到IPv6网络设置</p>
+<p><img src="https://pic.imgdb.cn/item/64f35373661c6c8e54de2877.webp" alt="10009"></p>
+<p>将上网方式改为Native</p>
+<p><img src="https://pic.imgdb.cn/item/64f35373661c6c8e54de289a.webp" alt="10010"></p>
+<p>其他品牌设置或有差异</p>
+<p>再次在cmd中查询IP</p>
+<p><img src="https://pic.imgdb.cn/item/64f3537f661c6c8e54de2a3c.webp" alt="10011"></p>
+<p>变(*･ω&lt; )～</p>
+<p>  此时你有了两个公网IPv6地址 </p>
+<p>  我们只需要一个</p>
+<p>  禁用临时IPv6地址：cmd中输入</p>
+<p>netsh interface ipv6 set privacy state&#x3D;disable</p>
+<p>  重启网卡</p>
+<p><img src="https://pic.imgdb.cn/item/64f3537f661c6c8e54de2a44.webp" alt="10012"></p>
+<p>success√</p>
+<p>2.进入路由器 给电脑分配一个静态地址</p>
+<p><img src="https://pic.imgdb.cn/item/64f3536c661c6c8e54de26a8.webp" alt="100030"></p>
+<p>②运行官方配置工具(下载链接在上方)</p>
+<p>Moonlight默认不监听IPv6访问 需要运行工具</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/100050.webp" alt="100050"></p>
+<p>运行后对话框提示(你没有IPv4地址)：</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10013.webp" alt="10013"></p>
+<p>英文解答：If you get this error, your ISP hasn’t given you a public IP address which allows you to host services like Moonlight on the Internet. In many cases, your ISP will be happy to give one to you for free if you just ask.</p>
+<p>我们使用<strong>IPv6</strong> 无视即可</p>
+<p><strong>无公网地址 PC端设置 ：</strong></p>
+<p>使用ZeroTier One（虚拟局域网）</p>
+<p>或者自己部署内网穿透</p>
+<p>进入官方网站 zerotier.com</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10014.webp" alt="10014"></p>
+<p>注册一个账号</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10015.webp" alt="10015"></p>
+<p>名字 姓氏 电子邮箱 密码 确认密码</p>
+<pre><code>创建一个网络 记下网络ID(不是名称)
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10016.webp" alt="10016"></p>
+<p>‘Create a Network’</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10017.webp" alt="10017"></p>
+<pre><code> 一般勾选PRIVATE 比PUBLIC选项安全
+
+
+ 下载ZeroTier PC客户端和手机客户端
+
+ 在PC端里加入网络(Join Network)
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10018.webp" alt="10018"></p>
+<p>输入网络ID 点击Join</p>
+<p>返回到Zerotier网页 找到Members栏目</p>
+<p>管理设备Auth?前勾选上你的电脑以自动分配IP</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10019.webp" alt="10019"></p>
+<p>我的电脑分配到的IP是192.168.193.143</p>
+<p>Address一栏是软件里出现的Node ID 或者可以根据Physical IP判断你的设备</p>
+<p><strong>无公网地址 手机端设置 ：</strong></p>
+<p>打开ZeroTier软件 加入你的网络</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10020.webp" alt="10020"></p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10021.webp" alt="10021"></p>
+<p>同样在网页里把你的设备前的Auth?打勾</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10022.webp" alt="10022"></p>
+<p>串流前记得打开电脑和手机端的ZeroTier</p>
+<p>在Moonlight中输入电脑分配到的IP</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10023.webp" alt="10023"></p>
+<p>提示输入配对码 可以正常使用了！</p>
+<p><strong>有公网地址 ：</strong></p>
+<p>输入公网地址即可使用</p>
+<p>注意:IPv6地址是唯一的 每一台连接到路由器上的设备都有一个公网地址 和IPv4不同 </p>
+<hr>
+<p><strong>基本配置</strong>到此结束 </p>
+<p>能用 但是不好用 </p>
+<p>家庭宽带的公网IP都是动态IP 会不定时变动 以公网方式串流 每次都要手动输入IP</p>
+<p>下面来解决这个问题：</p>
+<p>设置DDNS(非公网串流跳过)：</p>
+<p><strong>把动态IP和你的固定域名绑定起来</strong></p>
+<p><strong>IPv4</strong>公网：</p>
+<p>墙裂建议在路由器界面进行配置！会免去很多麻烦</p>
+<p>在路由器里找到DDNS选项</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10024.webp" alt="10024"></p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10025.webp" alt="10025"></p>
+<p>需要先去服务提供商网站注册  再在路由器里添加服务</p>
+<p>一般服务商会提供一个免费域名</p>
+<p><strong>IPv6</strong>公网 ：</p>
+<p>如果你的路由和服务商支持IPv6解析 配置和上面大同小异</p>
+<p>如果不支持 也可自行手动配置</p>
+<p>网上相关的工具很多 介绍我在用的一个</p>
+<p><a target="_blank" rel="noopener" href="https://ddns.newfuture.cc/">https://ddns.newfuture.cc/</a><br><a target="_blank" rel="noopener" href="https://github.com/NewFuture/DDNS">https://github.com/NewFuture/DDNS</a></p>
+<p>需要下载两个：本体和定时脚本</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/NewFuture/DDNS/releases/">https://github.com/NewFuture/DDNS/releases/</a></p>
+<p>使用方法在官方文档里有说明</p>
+<p>先去注册个域名</p>
+<p>找一个DNS(域名解析)服务商 我用的是Cloudflare </p>
+<p>绑定你的域名</p>
+<p>之后在DNS解析一栏里添加几个地址：</p>
+<p>类型 AAAA  名称 @  你的电脑IP</p>
+<p>类型 AAAA  名称 www  你的电脑IP</p>
+<p>注意代理不要勾选上</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10026.webp" alt="10026"></p>
+<p>填好后回到DDNS软件 进行配置</p>
+<p>如果使用Cloudflare 也可以像我这样填写</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10027.webp" alt="10027"></p>
+<p>id是注册Cloudflare时的邮箱 ipv4留空 ipv6填你的域名 token填Global API key</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10028.webp" alt="10028"></p>
+<p>API秘钥</p>
+<p>其他服务商请自行参照官方说明填写~</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10029.webp" alt="10029"></p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10030.webp" alt="10030"></p>
+<hr>
+<p><strong>定时启动：</strong></p>
+<p>仅修改一个参数即可 我设定的是每35分钟更新一次IP 就填35</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10031.webp" alt="10031"></p>
+<p>设置计划启动 开机自动运行</p>
+<p>在：控制面板→Windows工具→任务计划程序</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10032.webp" alt="10032"></p>
+<p>在右侧 点击 创建任务</p>
+<p>触发器→新建→启动时触发</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10033.webp" alt="10033"></p>
+<p>操作→新建→启动程序  分别添加ddns.exe和create-task.bat</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10034.webp" alt="10034"></p>
+<p>配置完毕！</p>
+<p>距离真正的云电脑还差最后一步</p>
+<p><strong>远程开机：</strong></p>
+<p>几种方法：</p>
+<p>①智能插座(断电重启法 最有效)    ¥49</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10035.webp" alt="10035"></p>
+<p>ಠᴗಠ大概长这样</p>
+<p>在BIOS中设置断电后自动开机</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10036.webp" alt="10036"></p>
+<p>②WOL(WakeOnLine)</p>
+<p>准备工作：</p>
+<p>BIOS开启PCIe唤醒(有的主板也叫WakeOnLine)</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10037.webp" alt="10037"></p>
+<p>网卡禁用节能    启用关机唤醒</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10038.webp" alt="10038"></p>
+<p>有些高端(?)路由器可以在路由里直接进行配置</p>
+<p>如果你是<strong>IPv4</strong>公网 且在路由器中配置了DDNS</p>
+<p>在网卡中启用魔包唤醒</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10039.webp" alt="10039"></p>
+<p>再进行端口映射 即可通过你的域名远程开机</p>
+<p>Moonlight的WakeOnLine功能 使用 端口7,9,47998,47999,48000 协议UDP</p>
+<p>如果你手头恰好有一块esp8266开发板 (¥10) 可参照此篇</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_37624610/article/details/108196206">https://blog.csdn.net/m0_37624610/article/details/108196206</a></p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10040.webp" alt="10040"></p>
+<p>一坨锡瞩目</p>
+<p>或者买个开机棒    <strong>¥168</strong></p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10041.webp" alt="10041"></p>
+<p>(ps：wol法门槛较高 稳定使用需要arp绑定 若有需求墙裂建议智能插座)</p>
+<p><strong>延迟测试：</strong></p>
+<p>局域网内延迟极小(4～14ms)</p>
+<p>1920x1080 最高码率  连接：极好</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10042.webp" alt="10042"></p>
+<p>使用ZeroTier中转 WiFi环境下延迟很小</p>
+<p>1920x1080 最高码率  连接：好</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/100010.webp" alt="100010"></p>
+<p>4G环境串流 有较高延迟 降低分辨率和码率可达流畅</p>
+<p><strong>已知问题</strong></p>
+<p>① 使用数据流量连接IPv6电脑时 找不到电脑&#x2F;RTSP handshake error</p>
+<p>尝试修改网络接入点(会造成某些网站无法访问)</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10043.webp" alt="10043"></p>
+<p>仅IPv6</p>
+<p><img src="https://raw.githubusercontent.com/FoxCha/psarchive/main/img/10044.webp" alt="10044"></p>
+<p>收工！ヽ(￣▽￣)ﾉ</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="addtoany"><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class="a2a_button_wechat"></a><a class="a2a_button_sina_weibo"></a><a class="a2a_button_facebook"></a><a class="a2a_button_facebook_messenger"></a><a class="a2a_button_twitter"></a><a class="a2a_button_email"></a><a class="a2a_button_copy_link"></a><a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a></div></div><script async="async" src="https://static.addtoany.com/menu/page.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/01/26/nps%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%90%AD%E9%85%8DMoonlight%E4%B8%B2%E6%B5%81/" title="nps内网穿透搭配Moonlight串流"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">nps内网穿透搭配Moonlight串流</div></div></a></div><div class="next-post pull-right"><a href="/2023/01/23/hello-world/" title="Hello World"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hello World</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Inari</div><div class="author-info__description">嘣！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/FoxCha"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/FoxCha" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">早哈喽~</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/04/fuckChuangGao/" title="科学跑步">科学跑步</a><time datetime="2025-03-04T12:52:52.000Z" title="发表于 2025-03-04 20:52:52">2025-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/22/yuansfer/" title="从内地无损汇款到香港">从内地无损汇款到香港</a><time datetime="2025-02-22T03:54:52.000Z" title="发表于 2025-02-22 11:54:52">2025-02-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/21/abroadBrokers/" title="常见海外证券账户开立">常见海外证券账户开立</a><time datetime="2025-02-21T10:05:48.000Z" title="发表于 2025-02-21 18:05:48">2025-02-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/05/bybitsCard/" title="usdt当钱使--bybit无门槛u卡申请与使用">usdt当钱使--bybit无门槛u卡申请与使用</a><time datetime="2025-02-05T07:31:26.000Z" title="发表于 2025-02-05 15:31:26">2025-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/04/debitCards/" title="零门槛申请的香港银行扣账卡 &amp; 绑定 applepay 进行消费">零门槛申请的香港银行扣账卡 &amp; 绑定 applepay 进行消费</a><time datetime="2025-02-04T07:32:08.000Z" title="发表于 2025-02-04 15:32:08">2025-02-04</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2023/10/14/9agijfNVEDZX5ld.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Inari</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.31/fancybox.umd.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://rinapis.click',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: true,
+    }, null))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdnjs.cloudflare.com/ajax/libs/waline/2.14.7/waline.min.css').then(() => {
+      getScript('https://cdnjs.cloudflare.com/ajax/libs/waline/2.14.7/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Waline' === 'Waline' || !false) {
+  if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
